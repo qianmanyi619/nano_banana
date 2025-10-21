@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ChevronDown, Sparkles, Zap, MessageSquare, Image, Target, Layers, Edit3, Repeat, Star, Menu } from "lucide-react";
+import ImageEditor from "@/components/ImageEditor";
 
 export default function Home() {
   return (
@@ -133,87 +134,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Prompt Engine */}
-            <Card className="p-6 bg-gradient-to-br from-yellow-50 to-orange-50 border-orange-200">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900">Prompt Engine</h3>
-                  <p className="text-gray-600">Transform your image with AI-powered editing</p>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white">
-                    <Image className="w-4 h-4 mr-2" />
-                    Image to Image
-                  </Button>
-                  <Button size="sm" variant="outline">
-                    Text to Image
-                  </Button>
-                </div>
-
-                <div className="bg-yellow-100 border border-yellow-200 rounded-lg p-3">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <span className="text-sm font-medium text-yellow-800">Batch Processing</span>
-                    <Badge className="bg-yellow-200 text-yellow-800 text-xs">Pro</Badge>
-                  </div>
-                  <p className="text-xs text-yellow-700">Enable batch mode to process multiple images at once</p>
-                </div>
-
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                  <div className="text-4xl mb-2">+</div>
-                  <p className="text-sm text-gray-600">Add Image</p>
-                  <p className="text-xs text-gray-500">Max 50MB</p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <MessageSquare className="w-4 h-4 inline mr-1" />
-                    Main Prompt
-                  </label>
-                  <textarea
-                    className="w-full p-3 border border-gray-300 rounded-lg resize-none"
-                    rows={3}
-                    placeholder="A futuristic city powered by nano technology, golden hour lighting, ultra detailed..."
-                  />
-                  <Button size="sm" variant="ghost" className="mt-2 text-xs">
-                    Copy
-                  </Button>
-                </div>
-
-                <Button className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-medium py-3">
-                  <Zap className="w-4 h-4 mr-2" />
-                  Generate Now
-                </Button>
-              </div>
-            </Card>
-
-            {/* Output Gallery */}
-            <Card className="p-6 bg-white border-gray-200">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center">
-                  <Image className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900">Output Gallery</h3>
-                  <p className="text-gray-600">Your ultra-fast AI creations appear here instantly</p>
-                </div>
-              </div>
-
-              <div className="bg-gray-50 rounded-lg p-12 text-center">
-                <div className="w-20 h-20 bg-gray-200 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <Image className="w-8 h-8 text-gray-400" />
-                </div>
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">Ready for instant generation</h4>
-                <p className="text-gray-600">Enter your prompt and unleash the power</p>
-              </div>
-            </Card>
-          </div>
+          <ImageEditor />
         </div>
       </section>
 
