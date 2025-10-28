@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nano Banana - AI Image Editor
+
+A Next.js application for AI-powered image editing with subscription-based pricing.
+
+## Features
+
+- 🍌 AI-powered image editing
+- 💳 Subscription-based pricing with Creem payments
+- 🔐 Supabase authentication (Google & GitHub)
+- 🎨 Modern UI with Tailwind CSS and ShadCN components
+- 📱 Responsive design
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Authentication**: Supabase Auth
+- **Payments**: Creem
+- **Database**: Supabase (PostgreSQL)
+- **UI Components**: ShadCN UI + Radix UI
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+
+- npm/yarn/pnpm
+- Supabase account
+- Creem account
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd nano_banana
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Fill in your environment variables:
+- `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous key
+- `NEXT_PUBLIC_CREEM_PUBLIC_KEY`: Your Creem public key
+- `CREEM_SECRET_KEY`: Your Creem secret key
+- `NEXT_PUBLIC_SITE_URL`: Your site URL (e.g., http://localhost:3000)
 
-## Learn More
+4. Set up the database:
+   - In your Supabase project, run the SQL migration in `supabase_migration.sql`
+   - This creates the `subscriptions` table with proper RLS policies
 
-To learn more about Next.js, take a look at the following resources:
+5. Set up Creem products:
+   - In your Creem dashboard, create products for your pricing plans
+   - Update the `productId` values in `src/lib/payment.ts` to match your Creem product IDs
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+6. Run the development server:
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+7. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── checkout/         # Payment checkout API
+│   │   ├── verify-payment/   # Payment verification API
+│   │   └── webhooks/creem/   # Creem webhook handler
+│   ├── login/                # Authentication page
+│   ├── pricing/              # Pricing page
+│   └── payment/success/      # Payment success page
+├── components/
+│   └── ui/                   # ShadCN UI components
+└── lib/
+    ├── payment.ts            # Payment service with Creem integration
+    └── supabase/             # Supabase client configuration
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Pricing Plans
+
+The application includes three pricing tiers:
+
+- **Free**: $0/month - 5 AI edits, basic features
+- **Pro**: $9.99/month - Unlimited edits, advanced features
+- **Enterprise**: $49.99/month - Everything + team features
+
+## Payment Flow
+
+1. User selects a pricing plan
+2. Application creates a Creem checkout session
+3. User completes payment on Creem's secure checkout
+4. Creem redirects back with payment status
+5. Application verifies payment and updates user subscription
+6. Webhooks handle subscription lifecycle events
+
+## Development
+
+### Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run TypeScript check and ESLint
+
+### Database Migrations
+
+The `supabase_migration.sql` file contains the SQL to set up the subscriptions table. Run this in your Supabase SQL editor.
+
+### Webhook Setup
+
+Configure your Creem webhook endpoint to point to:
+```
+https://yourdomain.com/api/webhooks/creem
+```
+
+This handles subscription status updates automatically.
+
+## Deployment
+
+1. Deploy to Vercel, Netlify, or your preferred platform
+2. Set environment variables in your deployment platform
+3. Update `NEXT_PUBLIC_SITE_URL` to your production domain
+4. Configure Creem webhook URLs to use your production domain
+
+## License
+
+[Your License Here]
